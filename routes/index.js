@@ -8,10 +8,12 @@ router.get('/', function(req, res, next) {
 
 /* 最新的版本号 */
 router.get('/latest', function(req, res, next) {
-    var latest = '1.2.4';
-    var url = 'https://update-app-vincent-gor-1.c9.io/version/qq_1.2.4.apk';
+    var latest = '1.2';
+    var apk_name = 'Laugh.apk';
+    var url = 'https://update-app-vincent-gor-1.c9.io/version/' + apk_name;
+    var update_msg = "新增X功能，修复了Ybug";
     console.log('查询最新版本');
-    res.json({ret_code: 0, version: latest, url: url});
+    res.json({ret_code: 0, version: latest, url: url, update_msg: update_msg, apk_name: apk_name});
 });
 
 module.exports = router;
