@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var db = require('../../utils/mysqlDb');
+
+var appService = require('../service/AppService');
 
 /* 首页 */
 router.get('/', function(req, res, next) {
@@ -15,6 +16,23 @@ router.get('/latest', function(req, res, next) {
     var update_msg = "新增X功能，修复了Ybug";
     console.log('查询最新版本');
     res.json({ret_code: 0, version: latest, url: url, update_msg: update_msg, apk_name: apk_name});
+});
+
+/* 最新的版本号 */
+router.get('/last', function(req, res, next) {
+    
+    console.log(req.url);
+    console.log(req.headers.host);
+    console.log(req.host);
+    console.log(req.protocol);
+    
+    appService.getTop().then(function(result) {
+        result.url = req.protocol+ '://' +req.hostname + '/version/'+result.apk_name;
+        res.json({ret_code: 0, data: result});
+    }, function(err) {
+        res.json({ret_code: -1, err: err});
+    });
+
 });
 
 module.exports = router;

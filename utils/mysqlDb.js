@@ -99,6 +99,7 @@ var _common = function (connection, sql, obj, fulfill, reject) {
             }
             console.log('operator back rows : ');
             console.log(rows);
+            fulfill(rows);
         } catch (e) {
             console.error('db operator error : ');
             console.error(e);
