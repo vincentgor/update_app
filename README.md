@@ -1,7 +1,8 @@
 # update_app
 升级app程序
 
-使用帮助：
+使用帮助：  
+
 1. 下载项目： git clone https://github.com/vincentgor/update_app.git
 2. 安装依赖模块： npm install
 3. 全局安装forever模块： npm install -g forever
