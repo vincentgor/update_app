@@ -1,8 +1,16 @@
 /**
  * Created by vinxent on 2015/8/1.
  */
-var conf = {
-	
+var conf = { };
+
+// 数据库配置
+conf.db = {
+    host      : '127.0.0.1',
+    port      : '3306',
+    database  : 'c9',
+    user      : 'vincent_gor',
+    password  : '',
+    charset   : 'UTF8'
 };
 
 /*

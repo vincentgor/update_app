@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var db = require('../../utils/mysqlDb');
 
 /* 首页 */
 router.get('/', function(req, res, next) {
