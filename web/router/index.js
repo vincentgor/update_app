@@ -21,11 +21,6 @@ router.get('/latest', function(req, res, next) {
 /* 最新的版本号 */
 router.get('/last', function(req, res, next) {
     
-    console.log(req.url);
-    console.log(req.headers.host);
-    console.log(req.host);
-    console.log(req.protocol);
-    
     appService.getTop().then(function(result) {
         result.url = req.protocol+ '://' +req.hostname + '/version/'+result.apk_name;
         res.json({ret_code: 0, data: result});
