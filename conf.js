@@ -13,6 +13,11 @@ conf.db = {
     charset   : 'UTF8'
 };
 
+conf.main = {
+    projectDir: '/home/ubuntu/workspace/',
+    fileUploadPath: 'public/version/'
+}
+
 /*
 forever -a -l /home/ubuntu/workspace/update_app.log start  /home/ubuntu/workspace/bin/www
 forever -a -l /home/ubuntu/workspace/update_app.log stop  /home/ubuntu/workspace/bin/www

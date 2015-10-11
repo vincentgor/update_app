@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>上传app</title>
+    </head>
+    <body>
+        <br /><br /><br /><br />
+        <div align='center'>
+            <form action='/upload' method='post' enctype='multipart/form-data'>
+                <input type="file" name="app"/><br />
+                版本号：<input type="text" name="version" id='version' /><br />
+                子版本号<input type="text" name="subversion" id='subversion' /><br />
+                <input type="submit" value="Submit"/>
+            </form>
+        </div>
+    </body>
+</html>
