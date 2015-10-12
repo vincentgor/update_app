@@ -3,7 +3,7 @@ var router = express.Router();
 var formidable = require('formidable');
 var fs = require('fs');
 
-var common = require('../../utils/common');
+var common = require('../utils/common');
 var conf = require('../../conf');
 var appService = require('../service/AppService');
 

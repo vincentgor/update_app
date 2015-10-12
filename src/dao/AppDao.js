@@ -1,4 +1,4 @@
-var db = require('../../utils/mysqlDb');
+var db = require('../utils/mysqlDb');
 var Promise = require('promise');
 
 var defaultTable = 't_app';

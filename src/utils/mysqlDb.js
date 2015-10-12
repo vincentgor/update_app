@@ -1,5 +1,5 @@
 var db = require('mysql');
-var conf = require('./../conf');
+var conf = require('../../conf');
 var Promise = require('promise');
 
 // mysql客户端
