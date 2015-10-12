@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 });
 
 /* 最新的版本号 */
-router.get('/latest', function(req, res, next) {
+router.get('/last', function(req, res, next) {
     var latest = '1.0';
     var apk_name = 'RecruitPlatform.apk';
     var url = req.protocol+ '://' +req.hostname + '/version/' + apk_name;
@@ -23,7 +23,7 @@ router.get('/latest', function(req, res, next) {
 });
 
 /* 最新的版本号 */
-router.get('/last', function(req, res, next) {
+router.get('/latest', function(req, res, next) {
     var app_name = req.query.app_name || 'RecruitPlatform';   // 应用名字， 如 qq
     appService.getTop(app_name).then(function(result) {
         // result.url = req.protocol+ '://' +req.hostname + '/version/'+result.apk_name;
@@ -167,5 +167,24 @@ router.post('/update_msg', function(req, res, next) {
     // var data = {url: url};
     // res.json({ret_code: 0, data: data});
 });
+
+// app列表
+var app_list = function(req, res, next) {
+    var app_name = req.params.app_name;   // 应用名字， 如 qq
+    appService.getByPage(1, 83, app_name, '  name , version desc').then(function(result) {
+        var data = {
+            app_list: result
+        }
+        res.render('app_list', data);
+    }, function(err) {
+        res.json({ret_code: -1, err: err});
+    });
+};
+
+/* app列表 */
+router.get('/version', app_list);
+
+/* app列表 */
+router.get('/version/:app_name', app_list);
 
 module.exports = router;

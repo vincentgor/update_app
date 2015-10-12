@@ -6,10 +6,13 @@ var defaultTable = 't_app';
 var appDao = {};
 
 // 获取分页数据
-appDao.getByPage = function(pageIndex, pageSize, orderby) {
+appDao.getByPage = function(pageIndex, pageSize, name, orderby) {
     return new Promise(function(fulfill, reject) {
         var sql = 'select * from ' +  defaultTable;
-        sql += 'where 1=1 ';
+        sql += ' where 1=1 ';
+        if(name) {
+            sql += ' and name= ' + db.escape(name);
+        }
         sql+=' order by ' + orderby;
         // 最少也要第一页吧
         if(pageIndex <= 0) {

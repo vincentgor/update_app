@@ -8,11 +8,9 @@ appService.save = function(obj, connection) {
 };
 
 // 获取分页数据
-appService.getByPage = function(pageIndex, pageSize, orderby) {
-    if(!orderby) {
-        orderby = ' id';   // 默认id顺序
-    }
-    return appDao.getByPage(pageIndex, pageSize, orderby);
+appService.getByPage = function(pageIndex, pageSize, app_name, orderby) {
+    orderby = orderby || ' id';   // 默认id顺序
+    return appDao.getByPage(pageIndex, pageSize, app_name, orderby);
 };
 
 // 最新版
@@ -21,4 +19,4 @@ appService.getTop = function(app_name) {
 };
 
 // 导出模块
-module.exports = appDao;
+module.exports = appService;
