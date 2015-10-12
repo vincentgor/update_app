@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
     res.render('index', { title: 'hello, 粑粑' });
 });
 
-/* 最新的版本号 */
+/* 最新的版本号(目前已废弃) */
 router.get('/last', function(req, res, next) {
     var latest = '1.0';
     var apk_name = 'RecruitPlatform.apk';
@@ -82,8 +82,8 @@ router.post('/upload', function(req, res, next) {
         var url = req.protocol+ '://' +req.hostname + '/version/' + realName;
         var data = {url: url};
         
-        var name = files.app.name.substring(0,files.app.name.lastIndexOf('.'));
-        var obj = {
+        var name = files.app.name.substring(0,files.app.name.lastIndexOf('.'));   // 应用名字
+        var newVersion = {
             name: name,
             apk_name: realName,
             version: version,
@@ -93,7 +93,7 @@ router.post('/upload', function(req, res, next) {
             create_time: new Date()
         };
         
-        appService.save(obj).then(function(argument) {
+        appService.save(newVersion).then(function(argument) {
             console.log(argument);
             res.json({ret_code: 0, data: data});
         }, function(err) {
@@ -111,7 +111,7 @@ var replaceLastStr = function(sourceStr, sourceSubStr, destSubStr) {
     return retStr;
 }
 
-// 更新app信息
+// 更新app信息(目前已废弃)
 router.post('/update_msg', function(req, res, next) {
     
     // test
