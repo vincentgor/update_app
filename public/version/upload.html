@@ -7,12 +7,45 @@
     <body>
         <br /><br /><br /><br />
         <div align='center'>
-            <form action='/upload' method='post' enctype='multipart/form-data'>
-                <input type="file" name="app"/><br />
+            <form action='/upload' method='post' enctype="multipart/form-data" >
+                <input type="file" name="app" id='app'/><br />
                 版本号：<input type="text" name="version" id='version' /><br />
                 子版本号<input type="text" name="subversion" id='subversion' /><br />
+                更新日志<input type="text" name="update_msg" id='update_msg' /><br />
                 <input type="submit" value="Submit"/>
             </form>
         </div>
+        
+        <!--<input type="file" id="app1" name="app" />-->
+        <!--<input type="button" onclick="UpladFile()" value="上传" />-->
     </body>
+    
+    <script>
+        // function UpladFile() {
+            
+        //     var oData = new FormData(document.forms.namedItem("qqqq"));
+        //     alert(oData)
+        //     // FormData 对象
+        //     var form = new FormData(oData);
+            
+        //     // var fileObj = document.getElementById("app1").files[0]; // 获取文件对象
+        //     // var version = document.getElementById("version").value; // 获取文件对象
+        //     // var subversion = document.getElementById("subversion").value; // 获取文件对象
+        //     var FileController = "/upload";                    // 接收上传文件的后台地址 
+
+            
+        //     form.append("version333", '22');                        // 可以增加表单数据
+        //     form.append("subversion", '222');
+        //     // form.append("app", fileObj);                           // 文件对象
+
+        //     // XMLHttpRequest 对象
+        //     var xhr = new XMLHttpRequest();
+        //     xhr.open("post", FileController, true);
+        //     xhr.onload = function () {
+        //         alert("上传完成!");
+        //     };
+
+        //     xhr.send(form);
+        // }
+    </script>
 </html>

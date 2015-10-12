@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var formidable = require('formidable');
-var util = require('util');
 var fs = require('fs');
 
 var conf = require('../../conf');
@@ -14,9 +13,9 @@ router.get('/', function(req, res, next) {
 
 /* 最新的版本号 */
 router.get('/latest', function(req, res, next) {
-    var latest = '1.2';
-    var apk_name = 'Laugh.apk';
-    var url = 'https://update-app-vincent-gor-1.c9.io/version/' + apk_name;
+    var latest = '1.0';
+    var apk_name = 'RecruitPlatform.apk';
+    var url = req.protocol+ '://' +req.hostname + '/version/' + apk_name;
     var update_msg = "新增X功能，修复了Ybug";
     console.log('查询最新版本');
     res.json({ret_code: 0, version: latest, url: url, update_msg: update_msg, apk_name: apk_name});
@@ -37,22 +36,24 @@ router.get('/last', function(req, res, next) {
 /* 上传apk */
 router.post('/upload', function(req, res, next) {
     
-    var version = req.body.version || 2;
-    var subversion = req.body.subversion || 3;
-    // console.log('version' + version);
-    // console.log('subversion' + subversion);
+    var version = req.body.version || 3;
+    var subversion = req.body.subversion || 4;
+    console.log('version' + version);
+    console.log('subversion' + subversion);
     
-    // if(version=='' || subversion=='' || version==undefined || subversion==undefined) {
-    //     res.json({ret_code: -1, err: '缺少参数'});
-    //     return;
-    // }
+    if(version=='' || subversion=='' || version==undefined || subversion==undefined) {
+        res.json({ret_code: -1, err: '缺少参数'});
+        return;
+    }
     
     var form = new formidable.IncomingForm();
     form.encoding = 'utf-8';    // 编码
     form.uploadDir = conf.main.projectDir + conf.main.fileUploadPath;   //上传路径
+    console.log(form.uploadDir);
     form.keepExtensions = true;	 //保留后缀
     
     form.parse(req, function(err, fields, files) {
+        console.log('21323123');
         if(err) {
             console.error(err);
             res.json({ret_code: -1, err: err});
