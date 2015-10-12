@@ -3,6 +3,7 @@ var router = express.Router();
 var formidable = require('formidable');
 var fs = require('fs');
 
+var common = require('../../utils/common');
 var conf = require('../../conf');
 var appService = require('../service/AppService');
 
@@ -36,7 +37,7 @@ router.get('/last', function(req, res, next) {
 /* 上传apk */
 router.post('/upload', function(req, res, next) {
     
-    var version = req.body.version || 3;
+    var version = req.params.version || 3;
     var subversion = req.body.subversion || 4;
     console.log('version' + version);
     console.log('subversion' + subversion);
@@ -53,16 +54,24 @@ router.post('/upload', function(req, res, next) {
     form.keepExtensions = true;	 //保留后缀
     
     form.parse(req, function(err, fields, files) {
-        console.log('21323123');
+        console.log(fields);
+        console.log(files);
         if(err) {
             console.error(err);
             res.json({ret_code: -1, err: err});
             return;
         }
         
+        if(!files.app) {
+            var err_msg = '文件不能为空';
+            console.error(err_msg);
+            res.json({ret_code: -1, err: err_msg});
+            return;
+        }
+        
         // 移动文件
         var realName = files.app.name;
-        realName = replaceLastStr(realName, '.', '_' + version + '.' + subversion + '.');
+        // realName = replaceLastStr(realName, '.', '_' + version + '.' + subversion + '.');
         var realPath = conf.main.projectDir + conf.main.fileUploadPath + realName;
         console.log(realPath);
         fs.renameSync(files.app.path, realPath);  //重命名
@@ -82,5 +91,38 @@ var replaceLastStr = function(sourceStr, sourceSubStr, destSubStr) {
     console.log('改造后的字符串为： ' + retStr);
     return retStr;
 }
+
+// 更新app信息
+router.post('/update_msg', function(req, res, next) {
+    
+    var apk_name = req.body.apk_name;    // app名字
+    var version = req.body.version;
+    var subversion = req.body.subversion;
+    var update_msg = req.body.update_msg;
+    console.log('version: ' + version);
+    console.log('subversion: ' + subversion);
+    console.log('update_msg: ' + update_msg);
+    
+    if(common.isBlank(version) || common.isBlank(subversion) || common.isBlank(update_msg)  || common.isBlank(apk_name)) {
+        res.json({ret_code: -1, err: '缺少参数'});
+        return;
+    }
+    
+    console.log('准备开始咯、、、、、、、、、、、、、、、、');
+    console.log(replaceLastStr);
+    
+    // 更新版本信息
+    var new_apk_name = replaceLastStr(apk_name, '.', '_' + version + '.' + subversion + '.');
+    var realPath = conf.main.projectDir + conf.main.fileUploadPath + new_apk_name;
+    console.log('realPath: ' + realPath);
+    var oldPath = conf.main.projectDir + conf.main.fileUploadPath + apk_name;
+    console.log('realPath: ' + oldPath);
+    console.log('改名后的路径为: ' + realPath);
+    fs.renameSync(oldPath, realPath);  //重命名
+
+    var url = req.protocol+ '://' +req.hostname + '/version/' + new_apk_name;
+    var data = {url: url};
+    res.json({ret_code: 0, data: data});
+});
 
 module.exports = router;
