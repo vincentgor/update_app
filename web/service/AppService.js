@@ -16,8 +16,8 @@ appService.getByPage = function(pageIndex, pageSize, orderby) {
 };
 
 // 最新版
-appService.getTop = function() {
-    return appDao.getTop();
+appService.getTop = function(app_name) {
+    return appDao.getTop(app_name);
 };
 
 // 导出模块

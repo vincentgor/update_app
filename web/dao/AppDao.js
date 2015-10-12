@@ -38,9 +38,10 @@ appDao.save = function(obj, connection) {
 };
 
 // 获取最新版本号信息
-appDao.getTop = function() {
+appDao.getTop = function(app_name) {
     return new Promise(function(fulfill, reject) {
         var sql = 'select * from ' + defaultTable;
+        sql += ' where name=' + db.escape(app_name);
         sql += ' order by version desc, subversion desc limit 0,1';
         
         db.query(sql).then(function(rows) {
