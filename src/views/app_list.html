@@ -7,9 +7,18 @@
     <body>
         <br /><br /><br /><br />
         <div align='center'>
-            <%for(var i=0; i<app_list.length; i++){%>
-                <a href="<%=app_list[i].apk_name%>"><u><%=app_list[i].apk_name%></u></a><br /><br />
-            <%}%>
+            <table>
+                <tr>
+                    <th>app版本</th><th>更新日志</th>
+                </tr>
+                <%for(var i=0; i<app_list.length; i++){%>
+                    <tr>
+                        <td><a href="<%=app_list[i].apk_name%>"><u><%=app_list[i].apk_name%></u></a></td>
+                        <td><%=app_list[i].update_msg%></td>
+                    </tr>
+                <%}%>
+            </table>
+            
         </div>
     </body>
     <script>
